@@ -42,38 +42,41 @@ export default function BucketList() {
         );
 
   return (
-    <div className="min-h-screen bg-zinc-900 text-white px-4 py-6 font-sans">
-      <div className="max-w-3xl mx-auto space-y-6">
+    <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-black text-white px-4 py-8 font-sans">
+      <div className="max-w-3xl mx-auto space-y-8">
 
         {/* Header */}
-        <h1 className="text-3xl font-semibold text-center mb-4 tracking-tight text-white">
-          🎯 Bucket List
+        <h1 className="text-4xl font-bold text-center tracking-tight">
+          🎯 Your Bucket List
         </h1>
 
         {/* Add Item Input */}
-        <form onSubmit={handleAddItem} className="flex gap-3 items-center">
+        <form
+          onSubmit={handleAddItem}
+          className="flex flex-col sm:flex-row gap-3 items-center bg-zinc-800 bg-opacity-40 backdrop-blur-md p-4 rounded-2xl shadow-inner"
+        >
           <input
             type="text"
             placeholder="What's on your mind?"
             value={newItem}
             onChange={(e) => setNewItem(e.target.value)}
-            className="flex-1 px-4 py-3 rounded-xl bg-zinc-800 border border-zinc-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-1 px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
           />
           <button
             type="submit"
-            className="px-5 py-3 bg-blue-600 hover:bg-blue-700 transition rounded-xl text-white font-medium"
+            className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition rounded-xl text-white font-semibold w-full sm:w-auto"
           >
             Add
           </button>
         </form>
 
         {/* Filters */}
-        <div className="flex justify-center gap-6 text-sm mt-4">
+        <div className="flex justify-center gap-6 text-sm mt-2">
           {["all", "done", "pending"].map((type) => (
             <button
               key={type}
               onClick={() => setFilter(type)}
-              className={`capitalize px-2 pb-1 border-b-2 ${
+              className={`capitalize px-3 py-1 border-b-2 ${
                 filter === type
                   ? "border-blue-500 text-blue-400"
                   : "border-transparent text-gray-400 hover:text-gray-200"
@@ -85,7 +88,7 @@ export default function BucketList() {
         </div>
 
         {/* Masonry Grid for Items */}
-        <div className="grid sm:grid-cols-2 gap-4 pt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
           {filteredItems.length === 0 ? (
             <p className="text-center text-gray-500 col-span-full">
               No items yet.
@@ -94,7 +97,7 @@ export default function BucketList() {
             filteredItems.map((item) => (
               <div
                 key={item.id}
-                className="bg-zinc-800 rounded-2xl p-5 shadow-md flex flex-col justify-between hover:shadow-lg transition"
+                className="bg-zinc-800/80 backdrop-blur-xl rounded-2xl p-5 shadow-lg hover:shadow-xl transition border border-zinc-700 flex flex-col justify-between"
               >
                 <p
                   className={`text-lg ${
@@ -108,11 +111,11 @@ export default function BucketList() {
                     onClick={() => toggleDone(item.id)}
                     className={`flex-1 py-2 rounded-lg text-sm transition font-medium ${
                       item.is_done
-                        ? "bg-green-900 text-green-300 hover:bg-green-800"
+                        ? "bg-green-800 text-green-300 hover:bg-green-700"
                         : "bg-gray-700 text-white hover:bg-gray-600"
                     }`}
                   >
-                    {item.is_done ? "Done ✅" : "Mark Done"}
+                    {item.is_done ? "✓ Done" : "Mark Done"}
                   </button>
                   <button
                     onClick={() => handleRemove(item.id)}
